@@ -1,0 +1,11 @@
+MAILFROM=rem63@cornell.edu
+MAILTO=rem63@cornell.edu
+PATH=/usr/bin:/bin:/usr/sbin
+
+# min  hour  mday  month  wday  command#
+#
+# NEWA daily metadata update
+00 10 * * *  /bin/hostname; export PYTHONPATH=/Volumes/projects/venvs/newa/newa_pkg:/Volumes/projects/venvs/tsvar; /Volumes/projects/venvs/newa/newa_pkg/newa/database/scripts/update_metadata_from_newa.py
+# NEWA daily station validation
+15 12 * * *  /bin/hostname; export PYTHONPATH=/Volumes/projects/venvs/newa/newa_pkg:/Volumes/projects/venvs/tsvar; /Volumes/projects/venvs/newa/newa_pkg/newa/validation/scripts/report_missing.py
+20 12 * * *  /bin/hostname; export PYTHONPATH=/Volumes/projects/venvs/newa/newa_pkg:/Volumes/projects/venvs/tsvar; /Volumes/projects/venvs/newa/newa_pkg/newa/sensors/detect_faulty_precip_sensor.py

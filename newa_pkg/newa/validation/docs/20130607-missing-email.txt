@@ -1,0 +1,52 @@
+IP-100 email body
+
+"""
+If your weather station is down for calibration or routine maintenance, please send an email to NEWA@cornell.edu with the subject line: "Maintenance on %(sensor)s on the %(network)s network at %(sid):%(name)s"
+
+Otherwise, please perform the following checks to troubleshoot your IP-100 data connection:
+1. Check the physical cabling between the IP-100 and your internet router for damaged or loose connections.
+2. Use a computer to check whether you have access to the Internet. If necessary, contact your internet service provider for help.
+3. Check whether data from your weather station is being uploaded to RainwiseNet (http://www.rainwise.net) by visiting your RainwiseNet webpage. Once there, verify that the RainwiseNet database for your weather station is up-to-date. If not, please send an email to  Wayne Burnett <Wayne.Burnett@rainwise.com> with the subject line: "Issue with %(sensor)s (%(mac_address)s on the %(network)s network at %(name)s" asking for for help to resolve the issue.
+4. Finally, make sure the Upload Rate is set at 15 minutes on RainwiseNet, under Settings, and Save changes.
+
+If the system has been checked and appears to be working, but data is still not being displayed on the NEWA website(http://newa.cornell.edu), please send an email to newa@cornell.edu with the subject line "Issue with %(sensor)s (%(mac_address)s on the %(network)s network at %(name)s"
+
+If you feel that you received this email in error, please send an email to Juliet E. Carroll <jec3@cornell.edu> with the subject line: "Outage Notification Error recieved for 0%(sid)s:%(name)s"
+"""
+
+FTP email body
+
+"""
+If your weather station is down for calibration or routine maintenance, please send an email to NEWA@cornell.edu with the subject line: "Maintenance on %(sensor)s on the %(network)s network at %(sid):%(name)s"
+
+Otherwise, please perform the following checks to troubleshoot your FTP connection:
+1. Make sure the computer is on and the Cornell ftp software is running. Remember: automatic upgrades, power outages, or anything else that causes a computer restart will require manual restart of the Cornell ftp software.
+2. Check the physical cabling between the weather station and your computer for damaged or loose connections.
+3. Check that the physical connection between your computer and the internet is active. For hard-wired connections, check the cabling for damaged or loose connections.
+4. Check to see if data is being transmitted from your weather station to your computer and that it is being properly loaded by the WLcom software. If not, please send an email to  Wayne Burnett <Wayne.Burnett@rainwise.com> with the subject line: "Issue with %(sensor)s (%(mac_address)s on the %(network)s network at %(name)s" asking for for help to resolve the issue.
+
+If the system has been checked and appears to be working, but data is still not being displayed on the NEWA website(http://newa.cornell.edu), please send an email to newa@cornell.edu with the subject line "Issue with %(sensor)s (%(mac_address)s on the %(network)s network at %(name)s"
+
+If you feel that you received this email in error, please send an email to Juliet E. Carroll <jec3@cornell.edu> with the subject line: "Outage Notification Error recieved for 0%(sid)s:%(name)s"
+"""
+
+
+modem email body
+
+"""
+If your weather station is down for calibration or routine maintenance, please send an email to NEWA@cornell.edu with the subject line: "Maintenance on %(sensor)s on the %(network)s network at %(sid):%(name)s"
+
+Otherwise, please perform the following checks to troubleshoot your modem connection:
+1. Check the radio link between the weather station and your computer is up and tranmitting.
+2. Make sure the computer is on and receiving data from the weather station.
+3. Check the physical connection between your computer and the the phone for damaged or loose cable connections.
+4. Check that the physical connection between your computer and the phone line is active. Make sure there is a dial tone on the phone line.
+
+If the system has been checked and appears to be working, but data is still not being displayed on the NEWA website(http://newa.cornell.edu), please send an email to newa@cornell.edu with the subject line "Issue with %(sensor)s (%(mac_address)s on the %(network)s network at %(name)s"
+
+If you feel that you received this email in error, please send an email to Juliet E. Carroll <jec3@cornell.edu> with the subject line: "Outage Notification Error recieved for 0%(sid)s:%(name)s"
+
+!!!!! Modems will no longer be supported as of December 31, 2013 !!!!!
+For help finding a new method for uploading your data send an email to NEWA@cornell.edu with the subject line: "Replace modem for %(sensor)s on the %(network)s network at %(sid):%(name)s"
+"""
+

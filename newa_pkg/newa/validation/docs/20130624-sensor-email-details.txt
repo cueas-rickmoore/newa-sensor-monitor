@@ -1,0 +1,32 @@
+http://newa.cornell.edu/index.php?page=maintenance-guidelines
+
+Maintain your weather station in good working condition according to the manufacturer’s recommendations for optimum data integrity.
+
+Inspect your weather station at least twice per year to make sure all sensors are clean, free of debris and in good working condition.
+
+Temperature and relative humidity sensors:
+
+Temperature sensors are delicate instruments that should be periodically checked, usually once per year or according to the manufacturers recommendation, to make certain they are accurate. Compare the readings of the weather station sensors with a calibrated thermometer or with another nearby weather station. Dry bulb temperature sensors record temperature. Wet bulb temperature sensors record dew point temperature from which relative humidity (RH) is calculated.
+
+Precipitation (rain) gauges:
+
+Leaves, moss, algae and debris will cause clogging of the tipping bucket screen. The tipping bucket should be cleaned at least twice a year. The surrounding environment will affect how often it should be cleaned. For example, where weather stations are placed in an open area near an orchard, vineyard or woods, make sure that tipping bucket rain gauges are not subject to filling with leaf litter from adjacent areas.
+
+For RainWise MKIII SP stations, to clean it pull the cotter pin out, remove the screen and clear the drain hole. You can clean the collector and tipping bucket with warm soapy water if necessary. Make sure you rinse it well afterwards. When putting it back together, if the cotter pin legs hang down inside the bucket collector, they may interfere with the tipper mechanism. The cotter pin legs MUST be bent up so they don’t interfere with the tipper.
+
+Leaf wetness sensors:
+
+NEWA suggests that you place plastic grid type leaf wetness sensors facing north and angled 45 degrees from horizontal. If they are attached close to the weather station, this protects the sensor and cables from pruning, spraying and harvesting activities. Periodically check the plastic grid for cracks that would expose the metal wire grid. Replace any broken or cracked leaf wetness sensors.
+
+Wind speed, anemometers:
+
+The anemometer should spin freely and be free of debris of any kind. Periodically inspect the anemometer in strong wind conditions and calm conditions to make certain it is working correctly.
+
+Wind direction, weather vane:
+
+The weather vane should be set to zero on due North in order for the readings to be accurate. Any time the weather station is moved or bumped, check the orientation of the weather vane relative to North. The weather vane should move freely and be free of debris of any kind.
+
+Solar radiation:
+
+The solar radiation sensor must be kept clean to ensure accurate readings. Clean the glass diffuser with a damp cloth. Replace the diffuser when it yellows (usually after several years of service). 
+

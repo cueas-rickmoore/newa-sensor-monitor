@@ -1,0 +1,13 @@
+Precipitation data received by NEWA from your weather station at %(name)s shows likely errors for the 24 hour period ending %(date_time_str)s.
+
+<The tipping bucket rain gauge on your weather station is reporting data that is either out-of-range, missing or in error. Please check your weather instrument to troubleshoot the problem.
+
+Specific maintenance information for rain gauges is available on the "Maintenance Guidelines" web page on the NEWA website at http://newa.cornell.edu/index.php?page=maintenance-guidelines
+
+To prevent abnormal data being sent to NEWA during maintenance procedures, turn off the weather station before cleaning or repairing the rain gauge and turn it back on when maintenance is complete.
+
+If the system has been checked and appears to be working, but accurate data is still not being displayed on the NEWA website (http://newa.cornell.edu/"), please contact the weather station manufacturer.
+
+If you feel that you received this email in error, please send an email to Juliet E. Carroll <jec3@cornell.edu> with the subject : "Precipitation Data Error Notification recieved for %(sid)s:%(name)s", New York State IPM Program.</b></p>
+
+%(signature)s

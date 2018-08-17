@@ -1,0 +1,83 @@
+#! /Users/rem63/venvs/nrcc_prod/bin/python
+
+import os, sys
+import shlex
+import subprocess
+
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+EXECUTABLE = os.path.normpath(sys.executable)
+SCRIPTS = { }
+SCRIPT_DIR = os.getcwd()
+ONE_DAY = relativedelta(days=1)
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+def runCommand(script_name, script_args, options):
+    script_path = os.path.join(SCRIPT_DIR, script_name)
+    if sys.platform.startswith('win'):
+        script_path = script_path.replace(os.sep, os.sep+os.sep)
+    if options.arg_string is None:
+        command = '%s %s' % (script_path, script_args)
+    else:
+        command = '%s %s %s' % (script_path, script_args, options.arg_string)
+    if options.debug == True:
+        print '\n==>', command
+        sys.stdout.flush()
+    result = subprocess.Popen(command, shell=True, env=os.environ).wait()
+    #process = shlex.split(command)
+    #process.insert(0, EXECUTABLE)
+    #result = os.spawnl(os.P_WAIT, EXECUTABLE, *process)
+    if result != 0 :
+        print 'ERROR : script failed ...', result
+    sys.stdout.flush()
+    return result
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+def reportMissing(date, options):
+    script_args = '%d %d %d' % date.timetuple()[:3]
+    return runCommand('report_missing.py', script_args, options)
+SCRIPTS['report_missing'] = reportMissing
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+from optparse import OptionParser
+parser = OptionParser()
+
+parser.add_option('--network', action='store', type='string', dest='network',
+                  default='newa')
+parser.add_option('--ext', action='store_true', dest='extremes', default=False)
+parser.add_option('--seq', action='store_true', dest='sequences', default=False)
+parser.add_option('--spk', action='store_true', dest='spikes', default=False)
+
+parser.add_option('-a', action='store', type='string', dest='arg_string',
+                  default=None)
+parser.add_option('-e', action='store', type='string', dest='element',
+                  default=None)
+parser.add_option('-s', action='store', type='string', dest='stddevs',
+                  default='5')
+parser.add_option('-z', action='store_true', dest='debug', default=False,
+                  help='show all available debug output')
+
+options, args = parser.parse_args()
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+script = SCRIPTS[os.path.splitext(args[0])[0]]
+
+year = int(args[1])
+month = int(args[2])
+day = int(args[3])
+num_days = int(args[4])
+date = datetime(year, month, day)
+last_date = date + relativedelta(days=num_days)
+
+while date < last_date:
+    script(date, options)
+    date += ONE_DAY
+
+os._exit(0)

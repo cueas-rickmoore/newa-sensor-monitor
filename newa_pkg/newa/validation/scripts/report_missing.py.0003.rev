@@ -1,0 +1,134 @@
+#! /Users/rem63/venvs/nrcc_prod/bin/python
+
+import os, sys
+
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
+import numpy as N
+
+from rccpy.utils.exceptutils import captureLastException
+from rccpy.utils.options import stringToTuple
+from rccpy.utils.timeutils import dateAsInt, dateAsTuple, dateAsString
+
+from newa.factory import ObsnetDataFactory
+from newa.validation.manager import ValidationManager
+from newa.validation.decisions import decisionTree
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+APP = os.path.split(sys.argv[0])[1] + ' ' + ' '.join(sys.argv[1:])
+PID = 'PID %d' % os.getpid()
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+from newa.config import config as CONFIG
+STATE_COORDINATORS = CONFIG.networks.newa.coordinators
+RAW_DATASETS = CONFIG.raw_datasets
+EMAIL_HOST = CONFIG.services.email.smtp_host
+
+from newa.validation.config import validation as VALIDATION
+
+STATION_INFO = '%(sid)s : %(name)s : %(contact)s'
+
+ONE_DAY = relativedelta(days=1)
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+from optparse import OptionParser
+parser = OptionParser()
+
+parser.add_option('--log', action='store', type='string', dest='log_filepath',
+                  default=None)
+parser.add_option('--sc', action='store', type='string', dest='search_criteria',
+                  default=None)
+parser.add_option('-n', action='store', type='string', dest='networks',
+                  default='cu_log,newa')
+parser.add_option('-w', action='store', type='string', dest='working_dir',
+                  default=None)
+parser.add_option('-u', action='store_false', dest='update_index', default=True)
+parser.add_option('-v', action='store_true', dest='verbose', default=False)
+parser.add_option('-y', action='store_true', dest='test_run', default=False)
+parser.add_option('-z', action='store_true', dest='debug', default=False)
+
+options, args = parser.parse_args()
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+if len(args) > 0:
+    year = int(args[0])
+    month = int(args[1])
+    day = int(args[2])
+    if len(args) > 3: first_hour_in_day = int(args[3])
+    end_time = datetime(year, month, day, 23)
+    start_time = datetime(year, month, day, 0)
+else:
+    date = datetime.now() - ONE_DAY
+    end_time = datetime(date.year, date.month, date.day, 23)
+    start_time = datetime(date.year, date.month, date.day, 0)
+end_time_as_int = dateAsInt(end_time, True)
+date_str = end_time.strftime('%B %d, %Y')
+prev_date = dateAsInt(end_time-ONE_DAY, True)
+
+debug = options.debug
+verbose = options.verbose
+if verbose: print 'verbose debug output requested'
+networks = stringToTuple(options.networks)
+test_run = options.test_run
+update_index = options.update_index
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# create factory and get required data from index file
+factory = ObsnetDataFactory(options)
+index_manager = factory.getFileManager('index','r')
+sids_column = index_manager.getData('sid')
+last_report_column = index_manager.getData('last_report')
+active_status_column = index_manager.getData('active')
+index_manager.closeFile()
+
+validation_manager =\
+ValidationManager(decisionTree, start_time, end_time, networks,
+                  STATE_COORDINATORS, EMAIL_HOST, RAW_DATASETS,
+                  active_status_column, last_report_column, sids_column,
+                  debug, test_run, verbose)
+
+# build search criteria
+if options.search_criteria is None:
+    search_criteria = VALIDATION.search_criteria
+else: search_criteria = eval(options.search_criteria)
+
+# loop through all stations that match search criteria
+for station in factory.getIndexedStations('all', search_criteria,
+                                          sort_by='name'):
+    try:
+        result = validation_manager.validate(station)
+    except Exception as e:
+        xtype, formatted, details = captureLastException()
+        print "\n\nCaught", xtype, "excetpion for station on", date
+        print station
+        print ''.join(formatted)
+        print ''.join(details)
+
+    if result is None: continue
+    station, msg = result
+    if msg is not None and verbose:
+        print '\nMessage to %s' % (STATION_INFO % station)
+        print msg
+
+if update_index:
+    factory.backupIndexFile()
+    index_manager.openFile(mode='a')
+    validation_manager.updateDatabase(index_manager)
+    index_manager.closeFile()
+
+if options.log_filepath is None:
+    log_dirpath = os.path.join(CONFIG.working_dir, 'missing')
+    if not os.path.exists(log_dirpath): os.makedirs(log_dirpath)
+    log_filepath = os.path.join(log_dirpath,
+                                '%s_missing.log' % dateAsString(start_time))
+else: log_filepath = os.path.abspath(options.log_filepath)
+validation_manager.reportValidationResults(log_filepath)
+
+validation_manager.shutDown()
+

@@ -1,0 +1,30 @@
+Python 2.7.10 |Continuum Analytics, Inc.| (default, May 28 2015, 17:04:42) 
+[GCC 4.2.1 (Apple Inc. build 5577)] on darwin
+
+python-2.7.10-0.json
+dateutil-2.4.1-py27_0.json
+h5py-2.4.0-np19py27_0.json
+hdf5-1.8.14-0.json
+jpeg-8d-1.json
+libpng-1.5.13-1.json
+netcdf4-1.1.6-np19py27_0.json
+numpy-1.9.2-py27_0.json
+omniorb-4.1.7-py27_0.json
+omniorbpy-3.7-py27_0.json
+openssl-1.0.1k-1.json
+pep8-1.6.2-py27_0.json
+pil-1.1.7-py27_1.json
+pip-7.1.0-py27_0.json
+ptyprocess-0.4-py27_0.json
+pycurl-7.19.5.1-py27_0.json
+python.app-1.2-py27_3.json
+pytz-2015.2-py27_0.json
+pyzmq-14.5.0-py27_0.json
+scipy-0.15.1-np19py27_0.json
+setuptools-18.0.1-py27_0.json
+six-1.9.0-py27_0.json
+sqlite-3.8.4.1-1.json
+tornado-4.1-py27_0.json
+twisted-15.0.0-py27_0.json
+zlib-1.2.8-0.json
+zope.interface-4.1.2-py27_0.json
